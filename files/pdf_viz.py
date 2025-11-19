@@ -13,6 +13,8 @@ path = os.path.abspath(f"files/redrex/{file_name}.pdf")
 tables = camelot.read_pdf(path,
                           pages="1-end",
                           flavor='stream',
+                          table_areas=['65,558,500,303'],
+                          columns=['70,106,157,219,285,337,383,448,497']
                           )
 print(tables[0].parsing_report)
 

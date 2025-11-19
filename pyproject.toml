@@ -5,7 +5,7 @@ authors = ["Nelson Paiva <nelsonpaiva10@gmail.com"]
 readme = "REAME.md"
 
 [tool.poetry.dependencies]
-python = "^3.13.7"
+python = "^3.13.1"
 camelot-py = "^1.0.9"
 opencv-python = "^4.12.0.88"
 matplotlib = "^3.10.7"
