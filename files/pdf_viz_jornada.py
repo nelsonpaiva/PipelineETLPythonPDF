@@ -6,9 +6,9 @@ import matplotlib.pyplot as plt
 
 #print(matplotlib.get_backend())
 
-file_name = "Redrex - Fatura (1)"
+file_name = "corretora_jornada_de_dados (1)"
 
-path = os.path.abspath(f"files/redrex/{file_name}.pdf")
+path = os.path.abspath(f"files/jornada/{file_name}.pdf")
 
 tables = camelot.read_pdf(path,
                           pages="1-end",
