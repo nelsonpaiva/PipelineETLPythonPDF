@@ -65,9 +65,13 @@ class PDFTableExtractor:
         path = os.path.join(self.csv_path, f"{file_name}.csv")
         df.to_csv(path, sep=";", index=False)
     
-    def add_infos():
-          pass
-
+    def add_infos(self,header, content):
+        infos = header.iloc[0]
+        df = pd.DataFrame([infos.values] * len(content), columns=header.columns)
+        content = pd.concat([content.reset_index(drop=True), df.reset_index(drop=True)], axis=1)
+        content["Data de Inserção"] = pd.Timestamp('today').normalize()
+        return content
+        
     @staticmethod
     def fix_header(df):
             df.columns = df.iloc[0]
