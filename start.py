@@ -78,7 +78,12 @@ class PDFTableExtractor:
     def sanitize_column_names():
           pass
     
-    def send_to_db():
-          pass
-        
+    def send_to_db(df,table_name):
+        try:
+             connection = RDSPostgreSQLManager().alchemy()
+             df.to_sql(table_name, connection, if_exists="append", index=False)
+             logging.info(f"Success to save into {table_name}")
+        except Exception as e:
+             logging.error(e)
+
     
