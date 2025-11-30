@@ -59,8 +59,11 @@ class PDFTableExtractor:
             result = pd.concat(table_content, ignore_index=True) if len(table_content) > 1 else table_content[0]
             return result
     
-    def save_csv():
-          pass
+    def save_csv(self, df, file_name):
+        if not os.path.exists(self.csv_path):
+            os.makedirs(self.local_path, exists_ok=True)
+        path = os.path.join(self.csv_path, f"{file_name}.csv")
+        df.to_csv(path, sep=";", index=False)
     
     def add_infos():
           pass
