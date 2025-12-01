@@ -79,8 +79,12 @@ class PDFTableExtractor:
             df = df.drop(df.columns[0], axis=1)
             return df
     
-    def sanitize_column_names():
-          pass
+    def sanitize_column_names(self,df):
+        df.columns = df.columns.map(lambda x: unidecode(x))
+        df.columns = df.columns.str.replace(' ', '_')
+        df.columns = df.columns.srt.replace(r'\W', '', regex=True)
+        df.columns = df.columns.str.lower()
+        return df
     
     def send_to_db(df,table_name):
         try:
