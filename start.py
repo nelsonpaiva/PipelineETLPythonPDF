@@ -16,32 +16,29 @@ class PDFTableExtractor:
         self.file_name = file_name
         self.configs = configs
 
-    def start():
-        pass
-
     def start(self):
             
-            logging.info(f"Start pdf - {self.file_name}")
-            header = self.get_table_data(self.configs["header_table_areas"], self.configs["header_columns"],self.configs["header_fix"])
-            main = self.get_table_data(self.configs["table_areas"], self.configs["columns"],self.configs["fix"])
-            small = self.get_table_data(self.configs["small_table_areas"], self.configs["small_columns"],self.configs["small_fix"])
+        logging.info(f"Start pdf - {self.file_name}")
+        header = self.get_table_data(self.configs["header_table_areas"], self.configs["header_columns"],self.configs["header_fix"])
+        main = self.get_table_data(self.configs["table_areas"], self.configs["columns"],self.configs["fix"])
+        small = self.get_table_data(self.configs["small_table_areas"], self.configs["small_columns"],self.configs["small_fix"])
 
-            main = self.add_infos(header,main)
-            small = self.add_infos(header, small)
+        main = self.add_infos(header,main)
+        small = self.add_infos(header, small)
 
-            main = self.sanitize_column_names(main)
-            if self.configs["small_sanitize"]:
-                small = self.sanitize_column_names(small)
+        main = self.sanitize_column_names(main)
+        if self.configs["small_sanitize"]:
+            small = self.sanitize_column_names(small)
 
-            logging.info(f"Saving csv - {self.file_name}")
-            self.save_csv(main, self.file_name)
-            self.save_csv(small, f"{self.file_name}_small")
+        logging.info(f"Saving csv - {self.file_name}")
+        self.save_csv(main, self.file_name)
+        self.save_csv(small, f"{self.file_name}_small")
 
-            logging.info(f"Sending to DB - {self.file_name}")
-            self.send_to_db(main, f"Fatura_{self.configs['name']}".lower())
-            self.send_to_db(small, f"Fatura_{self.configs['name']}_small".lower())
+        logging.info(f"Sending to DB - {self.file_name}")
+        self.send_to_db(main, f"Fatura_{self.configs['name']}".lower())
+        self.send_to_db(small, f"Fatura_{self.configs['name']}_small".lower())
 
-            return {"main": main, "small": small}
+        return {"main": main, "small": small}
 
     def get_table_data(self, table_areas, table_columns, fix = True):
             tables = camelot.read_pdf(
