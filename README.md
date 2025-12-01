@@ -1,6 +1,20 @@
 # 📄 PDF Extractor
 
-Uma ferramenta poderosa para extrair e processar dados de arquivos PDF usando Python, com integração a banco de dados PostgreSQL.
+Ferramenta para extrair e processar tabelas de PDFs com Python, usando Camelot + OpenCV, com opção de salvar em PostgreSQL.
+
+Status: funcional para extração por regiões (stream). Ajustes de regras e áreas são necessários por documento.
+
+---
+
+## 🗂 Estrutura principal do projeto
+
+- files/  
+  - redrex/                — PDFs de exemplo (faturas)
+  - jornada/               — PDFs de exemplo (jornada de dados)
+- files/pdf_viz.py        — script de visualização e testes para `redrex`
+- files/pdf_viz_jornada.py— script de visualização e testes para `jornada`
+- pyproject.toml
+- README.md
 
 ---
 
@@ -19,6 +33,28 @@ Uma ferramenta poderosa para extrair e processar dados de arquivos PDF usando Py
 - Python 3.12 ou superior
 - PostgreSQL instalado e configurado
 - Poetry para gerenciamento de dependências
+
+---
+
+## 📦 Instalação (Poetry)
+
+1. Na raiz do projeto:
+```bash
+poetry install
+```
+
+2. Se precisar adicionar um pacote:
+```bash
+poetry add camelot-py
+poetry add opencv-python
+```
+
+Observações:
+- Se receber erros sobre pyproject.toml (ex.: `dependences`), corrija o typo para `dependencies`.
+- Se Poetry avisar sobre versão Python incompatível, ajuste a versão em pyproject.toml ou aponte o Poetry para um Python compatível:
+```bash
+poetry env use C:\caminho\para\python.exe
+```
 
 ---
 
@@ -103,6 +139,51 @@ poetry run python src/start.py
 
 5. **Execute a extração**
    - O sistema processará automaticamente todos os PDFs e salvará no banco de dados
+
+---
+
+## 🐞 Resolução de problemas comuns
+
+- ModuleNotFoundError (ex.: No module named 'camelot'):
+  - Verifique que o pacote está instalado no venv do Poetry:
+    ```bash
+    poetry run python -c "import camelot, matplotlib; print('OK')"
+    ```
+  - Se OK, selecione o interpretador do venv no VS Code (`Python: Select Interpreter`).
+
+- FileNotFoundError ao abrir PDF:
+  - Verifique o caminho usado no script (`path = os.path.abspath(f"files/jornada/{file_name}.pdf")`)
+  - Confirme nome correto da pasta (`jornada`) e do arquivo.
+
+- Erro ao `poetry add opencv-python` com pyproject inválido:
+  - Corrija `dependences` → `dependencies` no pyproject.toml.
+
+- Mensagem do Poetry sobre versões Python:
+  - Ajuste a especificação de python no pyproject.toml (ex.: `python = ">=3.13.2,<4.0.0"`) ou use `poetry env use` para apontar para um Python compatível.
+
+- Camelot pode precisar de Ghostscript e/ou OpenCV; se ocorrer erro ao abrir PDFs ou ao `camelot.read_pdf`, instale Ghostscript e garanta que está no PATH.
+
+---
+
+## 🔎 Dicas para ajustar extração (Camelot)
+
+- Se `tables[0].parsing_report` indicar baixa `accuracy` ou alto `whitespace`:
+  - Teste `flavor='lattice'` vs `flavor='stream'`
+  - Ajuste `table_areas`, `columns`, `edge_tol`, `row_tol`
+  - Visualize com:
+    ```python
+    import camelot, matplotlib.pyplot as plt
+    camelot.plot(tables[0], kind="contour")
+    plt.show()
+    ```
+
+---
+
+## 💡 Boas práticas
+
+- Mantenha PDFs de teste organizados em `files/<tipo>/`
+- Versione mudanças de regras de extração (configs/rules)
+- Teste cada alteração com `poetry run python files/pdf_viz*.py`
 
 ---
 
