@@ -103,3 +103,11 @@ def list_files(folder):
          return []
          
 
+if __name__ == "__main__":
+    corretora = 'jornada'
+    path = os.path.abspath(f"files/{corretora}/")
+    files = list_files(path)
+    for file in files:
+        extractor = PDFTableExtractor(file, configs=rules_dict[corretora]).start()
+    logging.info("Todos os arquivos foram processados")    
+    
