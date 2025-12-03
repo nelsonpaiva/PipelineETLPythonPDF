@@ -91,4 +91,15 @@ class PDFTableExtractor:
         except Exception as e:
              logging.error(e)
 
-    
+def list_files(folder):
+    try:
+        files = [os.path.splitext(f)[0] for f in os.listdir(folder) if os.path.isfile(os.path.join(folder,f))]
+        return files
+    except FileExistsError:
+         logging.info(f"A pasta '{folder}' não foi encontrada.")
+         return[]
+    except Exception as e:
+         logging.info(f"Ocorreu um erro: {e}")
+         return []
+         
+
