@@ -1,6 +1,6 @@
 redrex = {
     "name": "RedRex",
-    "table_areas": ['70, 560,498,279'],#áreas da tabela
+    "table_areas":['65,558,500,303'],#áreas da tabela
     "columns": ['70, 105, 160, 230, 285, 340, 380, 446'],#colunas da tabela
     "fix": True,#se eu vou ajustar ela ou não
     "small_table_areas": ['381, 275,484,185'],#áreas da tabela pequena
@@ -10,7 +10,7 @@ redrex = {
     "header_table_areas": ['290, 613,454,579'],#áreas do header
     "header_columns" : ['290, 360'],#colunas do header
     "header_fix": True,#se eu preciso ajustar ou não
-    "strip_text": './n',
+    "strip_text": '.\n',
     "flavor": "stream",
     "password": None,
     "pages": "1-end"#quais páginas vou pegar 
@@ -28,7 +28,7 @@ jornada = {
     "header_table_areas": ['290, 613,454,579'],
     "header_columns" : ['290, 360'],
     "header_fix": True,
-    "strip_text": './n',
+    "strip_text": '.\n',
     "flavor": "stream",
     "password": None,
     "pages": "1-end"

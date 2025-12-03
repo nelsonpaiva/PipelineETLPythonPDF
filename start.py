@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO)
 
 class PDFTableExtractor:
     def __init__(self, file_name, configs):
-        self.path = os.path.abspath(f"files/pdf/{configs['name'].lower()}/{file_name}.pdf")
+        self.path = os.path.abspath(f"files/{configs['name'].lower()}/{file_name}.pdf")
         self.csv_path = os.path.abspath(f"files/csv/")
         self.file_name = file_name
         self.configs = configs
@@ -40,12 +40,12 @@ class PDFTableExtractor:
 
         return {"main": main, "small": small}
 
-    def get_table_data(self, table_areas, table_columns, fix = True):
+    def get_table_data(self, table_areas, columns, fix = True):
             tables = camelot.read_pdf(
                 self.path,
                 flavor=self.configs["flavor"],
                 table_areas=table_areas,
-                columns=table_columns,
+                columns=columns,
                 strip_text=self.configs["strip_text"],
                 pages=self.configs["pages"],
                 password=self.configs["password"],
@@ -79,11 +79,11 @@ class PDFTableExtractor:
     def sanitize_column_names(self,df):
         df.columns = df.columns.map(lambda x: unidecode(x))
         df.columns = df.columns.str.replace(' ', '_')
-        df.columns = df.columns.srt.replace(r'\W', '', regex=True)
+        df.columns = df.columns.str.replace(r'\W', '', regex=True)
         df.columns = df.columns.str.lower()
         return df
     
-    def send_to_db(df,table_name):
+    def send_to_db(self,df,table_name):
         try:
              connection = RDSPostgreSQLManager().alchemy()
              df.to_sql(table_name, connection, if_exists="append", index=False)
@@ -102,7 +102,6 @@ def list_files(folder):
          logging.info(f"Ocorreu um erro: {e}")
          return []
          
-
 if __name__ == "__main__":
     corretora = 'jornada'
     path = os.path.abspath(f"files/{corretora}/")
