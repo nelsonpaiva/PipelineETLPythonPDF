@@ -14,6 +14,8 @@ psycopg2-binary = "^2.9.11"
 sqlalchemy = "^2.0.44"
 unidecode = "^1.4.0"
 pandas = "^2.3.3"
+dbt-core = "^1.10.15"
+dbt-postgres = "^1.9.1"
 
 [build-system]
 requires = ["poetry-core"]
