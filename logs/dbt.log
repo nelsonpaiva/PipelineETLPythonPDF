@@ -1,0 +1,88 @@
+[0m23:24:44.350272 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000224959F5D30>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022494ABC690>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022497DEFD90>]}
+
+
+============================== 23:24:44.484401 | 4ebc7128-740b-4d99-8d41-20f10d3e6cd0 ==============================
+[0m23:24:44.484401 [info ] [MainThread]: Running with dbt=1.10.15
+[0m23:24:44.485156 [debug] [MainThread]: running dbt with arguments {'invocation_command': 'dbt init', 'log_format': 'default', 'printer_width': '80', 'profiles_dir': 'C:\\Users\\paiva\\.dbt', 'write_json': 'True', 'warn_error': 'None', 'indirect_selection': 'eager', 'fail_fast': 'False', 'log_path': 'logs', 'send_anonymous_usage_stats': 'True', 'static_parser': 'True', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'partial_parse': 'True', 'use_experimental_parser': 'False', 'version_check': 'True', 'introspect': 'True', 'quiet': 'False', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'no_print': 'None', 'use_colors': 'True', 'cache_selected_only': 'False', 'target_path': 'None'}
+[0m23:24:44.931657 [info ] [MainThread]: Creating dbt configuration folder at C:\Users\paiva\.dbt
+[0m23:26:31.001385 [debug] [MainThread]: Starter project path: C:\Users\paiva\AppData\Local\pypoetry\Cache\virtualenvs\pipeline-etl-pdf--H6dXsd8-py3.13\Lib\site-packages\dbt\include\starter_project
+[0m23:26:31.032262 [info ] [MainThread]: 
+Your new dbt project "dbt_pdf_python" was created!
+
+For more information on how to configure the profiles.yml file,
+please consult the dbt documentation here:
+
+  https://docs.getdbt.com/docs/configure-your-profile
+
+One more thing:
+
+Need help? Don't hesitate to reach out to us via GitHub issues or on Slack:
+
+  https://community.getdbt.com/
+
+Happy modeling!
+
+[0m23:26:31.033073 [info ] [MainThread]: Setting up your profile.
+[0m23:36:44.555791 [info ] [MainThread]: Profile dbt_pdf_python written to C:\Users\paiva\.dbt\profiles.yml using target's profile_template.yml and your supplied values. Run 'dbt debug' to validate the connection.
+[0m23:36:44.557183 [debug] [MainThread]: Command `dbt init` succeeded at 23:36:44.557038 after 720.39 seconds
+[0m23:36:44.557648 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022498209810>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022497729010>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000022497CE39B0>]}
+[0m23:36:44.558133 [debug] [MainThread]: Flushing usage events
+[0m23:36:45.748374 [debug] [MainThread]: An error was encountered while trying to flush usage events
+[0m23:38:33.367380 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'start', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001703F321E80>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001703FE360D0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x00000170404C7D90>]}
+
+
+============================== 23:38:33.371734 | 0badfca2-7f26-4c2b-9e9a-3d9bc3cd3eb6 ==============================
+[0m23:38:33.371734 [info ] [MainThread]: Running with dbt=1.10.15
+[0m23:38:33.372413 [debug] [MainThread]: running dbt with arguments {'no_print': 'None', 'printer_width': '80', 'log_format': 'default', 'invocation_command': 'dbt debug', 'target_path': 'None', 'warn_error': 'None', 'log_path': 'logs', 'partial_parse': 'True', 'fail_fast': 'False', 'send_anonymous_usage_stats': 'True', 'indirect_selection': 'eager', 'warn_error_options': 'WarnErrorOptionsV2(error=[], warn=[], silence=[])', 'static_parser': 'True', 'version_check': 'True', 'use_experimental_parser': 'False', 'quiet': 'False', 'introspect': 'True', 'empty': 'None', 'log_cache_events': 'False', 'debug': 'False', 'profiles_dir': 'C:\\Users\\paiva\\.dbt', 'use_colors': 'True', 'cache_selected_only': 'False', 'write_json': 'True'}
+[0m23:38:33.424595 [info ] [MainThread]: dbt version: 1.10.15
+[0m23:38:33.425171 [info ] [MainThread]: python version: 3.13.7
+[0m23:38:33.425647 [info ] [MainThread]: python path: C:\Users\paiva\AppData\Local\pypoetry\Cache\virtualenvs\pipeline-etl-pdf--H6dXsd8-py3.13\Scripts\python.exe
+[0m23:38:33.426145 [info ] [MainThread]: os info: Windows-11-10.0.26100-SP0
+[0m23:38:33.488311 [info ] [MainThread]: Using profiles dir at C:\Users\paiva\.dbt
+[0m23:38:33.488921 [info ] [MainThread]: Using profiles.yml file at C:\Users\paiva\.dbt\profiles.yml
+[0m23:38:33.489389 [info ] [MainThread]: Using dbt_project.yml file at C:\Users\paiva\Documents\Escola do Futuro\Meus Projetos Python para aulas\PipelineETLPythonPDF\dbt_project.yml
+[0m23:38:33.500767 [info ] [MainThread]: adapter type: postgres
+[0m23:38:33.501517 [info ] [MainThread]: adapter version: 1.9.1
+[0m23:38:33.502196 [info ] [MainThread]: Configuration:
+[0m23:38:33.502842 [info ] [MainThread]:   profiles.yml file [[32mOK found and valid[0m]
+[0m23:38:33.503378 [info ] [MainThread]:   dbt_project.yml file [[31mERROR not found[0m]
+[0m23:38:33.503985 [info ] [MainThread]: Required dependencies:
+[0m23:38:33.504557 [debug] [MainThread]: Executing "git --help"
+[0m23:38:33.564513 [debug] [MainThread]: STDOUT: "b"usage: git [-v | --version] [-h | --help] [-C <path>] [-c <name>=<value>]\n           [--exec-path[=<path>]] [--html-path] [--man-path] [--info-path]\n           [-p | --paginate | -P | --no-pager] [--no-replace-objects] [--no-lazy-fetch]\n           [--no-optional-locks] [--no-advice] [--bare] [--git-dir=<path>]\n           [--work-tree=<path>] [--namespace=<name>] [--config-env=<name>=<envvar>]\n           <command> [<args>]\n\nThese are common Git commands used in various situations:\n\nstart a working area (see also: git help tutorial)\n   clone      Clone a repository into a new directory\n   init       Create an empty Git repository or reinitialize an existing one\n\nwork on the current change (see also: git help everyday)\n   add        Add file contents to the index\n   mv         Move or rename a file, a directory, or a symlink\n   restore    Restore working tree files\n   rm         Remove files from the working tree and from the index\n\nexamine the history and state (see also: git help revisions)\n   bisect     Use binary search to find the commit that introduced a bug\n   diff       Show changes between commits, commit and working tree, etc\n   grep       Print lines matching a pattern\n   log        Show commit logs\n   show       Show various types of objects\n   status     Show the working tree status\n\ngrow, mark and tweak your common history\n   backfill   Download missing objects in a partial clone\n   branch     List, create, or delete branches\n   commit     Record changes to the repository\n   merge      Join two or more development histories together\n   rebase     Reapply commits on top of another base tip\n   reset      Reset current HEAD to the specified state\n   switch     Switch branches\n   tag        Create, list, delete or verify a tag object signed with GPG\n\ncollaborate (see also: git help workflows)\n   fetch      Download objects and refs from another repository\n   pull       Fetch from and integrate with another repository or a local branch\n   push       Update remote refs along with associated objects\n\n'git help -a' and 'git help -g' list available subcommands and some\nconcept guides. See 'git help <command>' or 'git help <concept>'\nto read about a specific subcommand or concept.\nSee 'git help git' for an overview of the system.\n""
+[0m23:38:33.565064 [debug] [MainThread]: STDERR: "b''"
+[0m23:38:33.565403 [info ] [MainThread]:  - git [[32mOK found[0m]
+
+[0m23:38:33.565859 [info ] [MainThread]: Connection:
+[0m23:38:33.566370 [info ] [MainThread]:   host: dpg-d4nqgfmr433s73ea6ung-a.oregon-postgres.render.com
+[0m23:38:33.566982 [info ] [MainThread]:   port: 5432
+[0m23:38:33.567520 [info ] [MainThread]:   user: db_pdf_python_user
+[0m23:38:33.568045 [info ] [MainThread]:   database: db_pdf_python
+[0m23:38:33.568510 [info ] [MainThread]:   schema: public
+[0m23:38:33.568989 [info ] [MainThread]:   connect_timeout: 10
+[0m23:38:33.569432 [info ] [MainThread]:   role: None
+[0m23:38:33.569859 [info ] [MainThread]:   search_path: None
+[0m23:38:33.570389 [info ] [MainThread]:   keepalives_idle: 0
+[0m23:38:33.570923 [info ] [MainThread]:   sslmode: None
+[0m23:38:33.571376 [info ] [MainThread]:   sslcert: None
+[0m23:38:33.571907 [info ] [MainThread]:   sslkey: None
+[0m23:38:33.572491 [info ] [MainThread]:   sslrootcert: None
+[0m23:38:33.573054 [info ] [MainThread]:   application_name: dbt
+[0m23:38:33.573696 [info ] [MainThread]:   retries: 1
+[0m23:38:33.574593 [info ] [MainThread]: Registered adapter: postgres=1.9.1
+[0m23:38:33.877174 [debug] [MainThread]: Acquiring new postgres connection 'debug'
+[0m23:38:37.643978 [debug] [MainThread]: Using postgres connection "debug"
+[0m23:38:37.644521 [debug] [MainThread]: On debug: select 1 as id
+[0m23:38:37.644942 [debug] [MainThread]: Opening a new connection, currently in state init
+[0m23:38:39.189936 [debug] [MainThread]: SQL status: SELECT 1 in 1.545 seconds
+[0m23:38:39.194450 [debug] [MainThread]: On debug: Close
+[0m23:38:39.197148 [info ] [MainThread]:   Connection test: [[32mOK connection ok[0m]
+
+[0m23:38:39.199612 [info ] [MainThread]: [31m1 check failed:[0m
+[0m23:38:39.201758 [info ] [MainThread]: Project loading failed for the following reason:
+ project path <C:\Users\paiva\Documents\Escola do Futuro\Meus Projetos Python para aulas\PipelineETLPythonPDF\dbt_project.yml> not found
+
+[0m23:38:39.206789 [debug] [MainThread]: Command `dbt debug` failed at 23:38:39.206103 after 6.04 seconds
+[0m23:38:39.208594 [debug] [MainThread]: Connection 'debug' was properly closed.
+[0m23:38:39.210596 [debug] [MainThread]: Sending event: {'category': 'dbt', 'action': 'invocation', 'label': 'end', 'context': [<snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x0000017041BA1220>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001704185B2F0>, <snowplow_tracker.self_describing_json.SelfDescribingJson object at 0x000001704157C8D0>]}
+[0m23:38:39.212041 [debug] [MainThread]: Flushing usage events
+[0m23:38:40.156732 [debug] [MainThread]: An error was encountered while trying to flush usage events
