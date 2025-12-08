@@ -4,7 +4,7 @@ WITH formatted AS (
         "cv",
         "merc",
         "tipo",
-        TO_DATE("vecto", 'DDMMYYYY') AS vecto,
+        TO_DATE("vencto", 'DDMMYYYY') AS vecto,
         CAST("qted" AS INT) AS qted,
         "mercadoria",
         CAST(REPLACE("cotacao", ',', '.') AS DECIMAL(10, 2)) AS cotacao,
