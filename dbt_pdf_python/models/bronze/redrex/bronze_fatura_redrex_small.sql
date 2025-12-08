@@ -15,7 +15,8 @@ WITH pivot_data AS (
 formatted AS (
     SELECT
         "N Nota" as n_nota,
-        TO_DATE("Data de Pregão", 'DDMMYYYY') AS data_de_pregao,
+        --TO_DATE("Data de Pregão", 'DDMMYYYY') AS data_de_pregao,
+        TO_DATE(REPLACE("Data de Pregão", '/', ''), 'DDMMYYYY') AS data_de_pregao,
         CAST(REPLACE(irr, ',', '.') AS DECIMAL(10, 2)) AS irr,
         CAST(REPLACE(ajuste, ',', '.') AS DECIMAL(10, 2)) AS ajuste,
         CAST(REPLACE(tx_corretagem, ',', '.') AS DECIMAL(10, 2)) AS tx_corretagem,

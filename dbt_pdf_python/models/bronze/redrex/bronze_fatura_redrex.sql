@@ -4,11 +4,11 @@ WITH formatted AS (
         "cv",
         "merc",
         "tipo",
-        TO_DATE("vencto", 'DDMMYYYY') AS vecto,
+        TO_DATE(REPLACE(vencto, '/', ''), 'DDMMYYYY') AS vecto,
         CAST("qted" AS INT) AS qted,
         "mercadoria",
         CAST(REPLACE("cotacao", ',', '.') AS DECIMAL(10, 2)) AS cotacao,
-        TO_DATE("data_de_pregao", 'DDMMYYYY') AS data_de_pregao,
+        TO_DATE(REPLACE(data_de_pregao, '/', ''), 'DDMMYYYY') AS data_de_pregao,
         CAST(REPLACE("txop", ',', '.') AS DECIMAL(10, 2)) AS txop
     FROM
         {{ source('investimentos', 'fatura_redrex') }}

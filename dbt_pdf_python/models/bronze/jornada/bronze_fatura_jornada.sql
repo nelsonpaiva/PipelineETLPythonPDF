@@ -9,11 +9,11 @@ WITH formatted AS (
         "cv",
         "merc",
         "tipo",
-        TO_DATE("vencto", 'DDMMYYYY') AS vecto, --correção de date_time
+        TO_DATE(REPLACE(vencto, '/', ''), 'DDMMYYYY') AS vecto, --correção de date_time
         CAST("qted" AS INT) AS qted, -- fazendo cast(tipo de dado) de inteiro
         "mercadoria",
         CAST(REPLACE("cotacao", ',', '.') AS DECIMAL(10, 2)) AS cotacao,--antes de fazer um cast(tipo de dado) para decimal, estou fazendo um Replace. Tirando o que é virgula e colocando ponto.
-        TO_DATE("data_de_pregao", 'DDMMYYYY') AS data_de_pregao,
+        TO_DATE(REPLACE(data_de_pregao, '/', ''), 'DDMMYYYY') AS data_de_pregao,
         CAST(REPLACE("txop", ',', '.') AS DECIMAL(10, 2)) AS txop
     FROM
         {{ source('investimentos', 'fatura_jornada') }}
