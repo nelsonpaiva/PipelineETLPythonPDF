@@ -198,13 +198,3 @@ Contribuições são bem-vindas! Por favor:
 5. Abra um **Pull Request**
 
 ---
-
-## 📄 Licença
-
-Este projeto está licenciado sob a **Licença MIT** - veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
----
-
-## 📞 Suporte
-
-Em caso de dúvidas ou problemas, abra uma [issue](../../issues) no repositório.
