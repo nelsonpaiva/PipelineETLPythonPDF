@@ -10,7 +10,7 @@ WITH cte_silver_fatura_jornada AS (
         cotacao,
         movimentacao
     FROM
-        {{ ref('silver_fatura_jornada') }}
+        {{ref('silver_fatura_jornada')}}
 ),
 
 cte_silver_fatura_redrex AS (
@@ -25,7 +25,7 @@ cte_silver_fatura_redrex AS (
         cotacao,
         movimentacao
     FROM
-        {{ ref('silver_fatura_redrex') }}
+        {{ref('silver_fatura_redrex')}}
 )
 
 SELECT * 
@@ -35,4 +35,3 @@ UNION ALL
 
 SELECT * 
 FROM cte_silver_fatura_redrex
-
