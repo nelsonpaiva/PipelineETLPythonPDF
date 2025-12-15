@@ -7,10 +7,10 @@ import altair as alt
 def load_data():
     # Conectar ao banco de dados PostgreSQL
     conn = psycopg2.connect(
-        host="",
-        database="",
-        user="",
-        password=""
+        host="dpg-d4nqgfmr433s73ea6ung-a.oregon-postgres.render.com",
+        database="db_pdf_python",
+        user="db_pdf_python_user",
+        password="oGYCz9cKtgBTG1v6RsZ3oyciUMAjihwG"
     )
     
     query = """
