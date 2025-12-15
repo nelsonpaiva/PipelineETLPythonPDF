@@ -17,6 +17,8 @@ pandas = "^2.3.3"
 dbt-core = "^1.10.15"
 dbt-postgres = "^1.9.1"
 streamlit = "^1.52.1"
+altair = "^6.0.0"
+vega-datasets = "^0.9.0"
 
 [build-system]
 requires = ["poetry-core"]
