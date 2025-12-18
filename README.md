@@ -12,189 +12,159 @@ Status: funcional para extração por regiões (stream). Ajustes de regras e ár
   - redrex/                — PDFs de exemplo (faturas)
   - jornada/               — PDFs de exemplo (jornada de dados)
 - files/pdf_viz.py        — script de visualização e testes para `redrex`
-- files/pdf_viz_jornada.py— script de visualização e testes para `jornada`
-- pyproject.toml
-- README.md
+***
+# Pipeline ETL — PDF to PostgreSQL
 
----
+Resumo
+------
+Projeto para extrair tabelas de PDFs, transformar e salvar em PostgreSQL. A pipeline usa Camelot para extração de tabelas, OpenCV/Pillow para suporte a imagens, pandas para manipulação e SQLAlchemy/psycopg2 para persistência no banco.
 
-## 🚀 Características
+Status
+------
+- Funcional para extração por áreas configuráveis (stream/lattice)
+- Regras de extração configuráveis em `configs/rules`
 
-- ✅ Extração automática de dados de PDFs
-- ✅ Processamento de tabelas e imagens
-- ✅ Integração com PostgreSQL
-- ✅ Visualização de áreas de extração
-- ✅ Configuração flexível de regras
+Estrutura principal
+------------------
+- `start.py`            — executor principal que itera PDFs e processa tabelas
+- `main.py`             — arquivo vazio (pode ser usado como entrypoint alternativo)
+- `configs/`            — configurações e regras (`configs/rules`, `configs/tools`)
+- `files/`              — PDFs de entrada e scripts de visualização (`pdf_viz.py`, `pdf_viz_jornada.py`)
+- `dbt_dashboard/`      — artefatos do dbt / app de exemplo
+- `dbt_pdf_python/`     — projeto dbt relacionado (models, target, logs)
+- `requirements.txt`    — lista de dependências (pip)
+- `pyproject.toml`      — configuração Poetry (dependências/metadata)
 
----
+Pré-requisitos
+--------------
+- Python 3.11+ (os arquivos indicam 3.13 em `pyproject.toml`, mas a stack funciona em 3.11+ na maioria dos casos)
+- PostgreSQL (servidor acessível para salvar resultados)
+- Ghostscript (recomendado para Camelot / manipulação de PDFs em algumas plataformas)
 
-## 📋 Pré-requisitos
+Instalação (recomendada)
+-----------------------
+1. Clone o repositório:
 
-- Python 3.12 ou superior
-- PostgreSQL instalado e configurado
-- Poetry para gerenciamento de dependências
-
----
-
-## 📦 Instalação (Poetry)
-
-1. Na raiz do projeto:
 ```bash
+git clone <URL-do-repositório>
+cd PipelineETLPythonPDF
+```
+
+2. Opção A — Usando Poetry (recomendado se quiser replicar ambiente do `pyproject.toml`):
+
+```bash
+# instalar o poetry se necessário
+# pip install poetry
 poetry install
+# ativar shell do poetry (opcional)
+poetry shell
 ```
 
-2. Se precisar adicionar um pacote:
-```bash
-poetry add camelot-py
-poetry add opencv-python
+3. Opção B — Usando virtualenv + pip e o `requirements.txt` (Windows/Powershell):
+
+```powershell
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1    # PowerShell
+pip install --upgrade pip
+pip install -r requirements.txt
 ```
 
-Observações:
-- Se receber erros sobre pyproject.toml (ex.: `dependences`), corrija o typo para `dependencies`.
-- Se Poetry avisar sobre versão Python incompatível, ajuste a versão em pyproject.toml ou aponte o Poetry para um Python compatível:
-```bash
-poetry env use C:\caminho\para\python.exe
+Variáveis de ambiente
+---------------------
+Crie um `.env` na raiz ou exporte as variáveis. Variáveis esperadas:
+
+- `DB_NAME` — nome do banco
+- `DB_USER` — usuário do banco
+- `DB_PASSWORD` — senha
+- `DB_HOST` — host (ex.: localhost)
+- `DB_PORT` — porta (opcional, padrão 5432)
+
+Exemplos
+
+Windows PowerShell (.env recomendado):
+
+```powershell
+$env:DB_NAME = "meu_banco"
+$env:DB_USER = "usuario"
+$env:DB_PASSWORD = "senha"
+$env:DB_HOST = "localhost"
 ```
 
----
-
-## 📦 Dependências
-
-```
-python = "^3.12"
-camelot-py = "^0.11.0"
-opencv-python = "^4.9.0.80"
-matplotlib = "^3.8.3"
-ghostscript = "^0.7"
-pandas = "^2.2.2"
-psycopg2-binary = "^2.9.9"
-sqlalchemy = "^2.0.32"
-unidecode = "^1.3.8"
-```
-
----
-
-## 🔐 Variáveis de Ambiente
-
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-
-```env
-DB_NAME=seu_nome_de_banco_de_dados
-DB_USER=seu_usuario
-DB_PASSWORD=sua_senha
-DB_HOST=localhost
-```
-
-| Variável | Descrição |
-|----------|-----------|
-| `DB_NAME` | Nome do banco de dados PostgreSQL |
-| `DB_USER` | Usuário do banco de dados |
-| `DB_PASSWORD` | Senha de acesso |
-| `DB_HOST` | Host do servidor (localhost ou IP) |
-
----
-
-## 🛠️ Instalação
-
-### 1. Clone o repositório
+Linux / macOS:
 
 ```bash
-git clone <URL do repositório>
-cd <nome do repositório>
+export DB_NAME=meu_banco
+export DB_USER=usuario
+export DB_PASSWORD=senha
+export DB_HOST=localhost
 ```
 
-### 2. Instale as dependências
+Como executar
+-------------
+- Rodar o executor principal (itera PDFs na pasta `files/<corretora>`):
 
 ```bash
-poetry install
+# com poetry
+poetry run python start.py
+# ou, em venv/pip
+python start.py
 ```
 
-### 3. Configure as variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto (veja seção acima).
-
-### 4. Execute o projeto
+- Os scripts de visualização podem ajudar a ajustar `table_areas` e regras:
 
 ```bash
-poetry run python src/start.py
+python files/pdf_viz.py
+python files/pdf_viz_jornada.py
 ```
 
----
+Notas sobre `start.py` e fluxo
+------------------------------
+- `start.py` cria a classe `PDFTableExtractor` que lê arquivos em `files/<nome>/`, aplica regras configuradas em `configs/rules/regras.py` e salva CSVs em `files/csv/` além de persistir no PostgreSQL via `RDSPostgreSQLManager` (`configs/tools/postgres.py`).
+- A persistência usa `pandas.DataFrame.to_sql(..., con=engine)` com um engine SQLAlchemy criado em `RDSPostgreSQLManager.alchemy()`.
 
-## 📖 Como Usar
+Dependências principais
+-----------------------
+As dependências estão em `requirements.txt` e `pyproject.toml`. Principais pacotes:
 
-### Passo a Passo
+- camelot-py / opencv-python(-headless)
+- pandas
+- sqlalchemy
+- psycopg2-binary
+- ghostscript (externo)
 
-1. **Organize os arquivos PDF**
-   - Crie uma subpasta em `src/files/` correspondente ao tipo de documento
+Problemas comuns e soluções rápidas
+---------------------------------
+- Erro de import (ex.: `No module named 'camelot'`): verifique venv/Poetry e reinstale as dependências.
+- `camelot.read_pdf` falha: confirme instalação do Ghostscript e verifique se a versão do Camelot é compatível com sua plataforma.
+- Problemas de parsing (baixa acurácia): ajustar `flavor` (stream/lattice), `table_areas`, `columns`, e usar os scripts de visualização para validar.
 
-2. **Configure as regras de extração**
-   - Edite `src/configs/rules/notas.py` com as regras específicas
+Melhorias e observações técnicas
+--------------------------------
+- Em `configs/tools/postgres.py` há uma validação no construtor que checa o método `check_environment_variables` sem chamá-lo. Recomenda-se alterar `not self.check_environment_variables` para `not self.check_environment_variables()` para validar corretamente as variáveis de ambiente.
+- `main.py` está vazio — pode ser usado para criar uma CLI/unidade de orquestração.
 
-3. **Visualize as áreas de extração** (opcional)
-   - Execute `pdf_viz.py` para obter referência visual das regiões a extrair
+Contribuição
+------------
+1. Fork
+2. Branch com nome claro (`feature/` ou `fix/`)
+3. Commits pequenos e descritivos
+4. PR com explicação das mudanças
 
-4. **Ajuste o script principal**
-   - Modifique `src/start.py` conforme necessário
+Contato
+-------
+Para dúvidas ou suporte, abra uma issue ou contate o autor registrado no `pyproject.toml`.
 
-5. **Execute a extração**
-   - O sistema processará automaticamente todos os PDFs e salvará no banco de dados
-
----
-
-## 🐞 Resolução de problemas comuns
-
-- ModuleNotFoundError (ex.: No module named 'camelot'):
-  - Verifique que o pacote está instalado no venv do Poetry:
-    ```bash
-    poetry run python -c "import camelot, matplotlib; print('OK')"
-    ```
-  - Se OK, selecione o interpretador do venv no VS Code (`Python: Select Interpreter`).
-
-- FileNotFoundError ao abrir PDF:
-  - Verifique o caminho usado no script (`path = os.path.abspath(f"files/jornada/{file_name}.pdf")`)
-  - Confirme nome correto da pasta (`jornada`) e do arquivo.
-
+***
 - Erro ao `poetry add opencv-python` com pyproject inválido:
-  - Corrija `dependences` → `dependencies` no pyproject.toml.
 
-- Mensagem do Poetry sobre versões Python:
-  - Ajuste a especificação de python no pyproject.toml (ex.: `python = ">=3.13.2,<4.0.0"`) ou use `poetry env use` para apontar para um Python compatível.
+Comandos Diversos
+------------
+Execução do Poetry: poetry run [`nome do arquivo`]
+Execução de pasta específica: poetry run --select [`nome do arquivo`]
+Instalação com o Poetry: poetry add [`nome da biblioteca`]
 
-- Camelot pode precisar de Ghostscript e/ou OpenCV; se ocorrer erro ao abrir PDFs ou ao `camelot.read_pdf`, instale Ghostscript e garanta que está no PATH.
+Criar documentação automática do dbt: dbt docs generate –-cria a documentação
+Criar documentação automática do dbt: dbt docs serve –-visualiza a documentação
 
----
+Executando o streamlit: streamlit run [`pasta/nome do arquivo.py`]
 
-## 🔎 Dicas para ajustar extração (Camelot)
-
-- Se `tables[0].parsing_report` indicar baixa `accuracy` ou alto `whitespace`:
-  - Teste `flavor='lattice'` vs `flavor='stream'`
-  - Ajuste `table_areas`, `columns`, `edge_tol`, `row_tol`
-  - Visualize com:
-    ```python
-    import camelot, matplotlib.pyplot as plt
-    camelot.plot(tables[0], kind="contour")
-    plt.show()
-    ```
-
----
-
-## 💡 Boas práticas
-
-- Mantenha PDFs de teste organizados em `files/<tipo>/`
-- Versione mudanças de regras de extração (configs/rules)
-- Teste cada alteração com `poetry run python files/pdf_viz*.py`
-
----
-
-## 🤝 Contribuição
-
-Contribuições são bem-vindas! Por favor:
-
-1. Faça um **fork** do repositório
-2. Crie uma **branch** para suas alterações (`git checkout -b feature/sua-feature`)
-3. **Commit** suas mudanças (`git commit -m 'Adiciona nova feature'`)
-4. **Push** para a branch (`git push origin feature/sua-feature`)
-5. Abra um **Pull Request**
-
----
